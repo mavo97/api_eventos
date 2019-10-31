@@ -77,3 +77,6 @@ ADD CONSTRAINT FK_idevent
 FOREIGN KEY (id_evento) REFERENCES eventos(id_evento) 
 ON UPDATE CASCADE
 ON DELETE CASCADE;
+
+ALTER TABLE eventos MODIFY costo INT(5) null;
+
