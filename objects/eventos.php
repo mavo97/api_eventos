@@ -45,7 +45,7 @@ class Evento{
         $sql->bindParam(2, $this->fecha_inicio, PDO::PARAM_STR);
         $sql->bindParam(3, $this->fecha_fin, PDO::PARAM_STR);
         $sql->bindParam(4, $this->ubicacion, PDO::PARAM_STR);
-        $sql->bindParam(5, $this->costo, PDO::PARAM_INT);
+        $sql->bindParam(5, $this->costo, PDO::PARAM_STR);
         $sql->bindParam(6, $this->estado, PDO::PARAM_BOOL);
         $sql->bindParam(7, $this->descripcion, PDO::PARAM_STR);
     
@@ -56,6 +56,24 @@ class Evento{
     
         return false;
         
+    }
+    function read(){
+ 
+        // select all query
+        $query = "SELECT
+                    *
+                FROM
+                    " . $this->table_name . "
+                ORDER BY
+                    fecha_inicio ASC";
+     
+        // prepare query statement
+        $sql = $this->conn->prepare($query);
+     
+        // execute query
+        $sql->execute();
+     
+        return $sql;
     }
 }
 ?>

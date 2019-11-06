@@ -14,7 +14,8 @@ PRIMARY KEY (curp),
 CREATE TABLE eventos ( id_evento int unsigned not null auto_increment,
 PRIMARY KEY (id_evento),
 nombre varchar(30) not null, fecha_inicio date not null, fecha_fin date not null,
-ubicacion varchar(30), costo int(5), estado boolean not null,  descripcion varchar(200) not null )ENGINE=INNODB;
+ubicacion varchar(30), costo int(5), estado boolean not null, 
+ descripcion varchar(200) not null )ENGINE=INNODB;
 
 /* Creación de tabla actividades */
 CREATE TABLE actividades (id_actividad int unsigned not null auto_increment,
@@ -78,5 +79,5 @@ FOREIGN KEY (id_evento) REFERENCES eventos(id_evento)
 ON UPDATE CASCADE
 ON DELETE CASCADE;
 
-ALTER TABLE eventos MODIFY costo INT(5) null;
+ALTER TABLE eventos MODIFY costo varchar(5) not null;
 
