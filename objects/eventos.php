@@ -46,7 +46,7 @@ class Evento{
         $sql->bindParam(3, $this->fecha_fin, PDO::PARAM_STR);
         $sql->bindParam(4, $this->ubicacion, PDO::PARAM_STR);
         $sql->bindParam(5, $this->costo, PDO::PARAM_STR);
-        $sql->bindParam(6, $this->estado, PDO::PARAM_BOOL);
+        $sql->bindParam(6, $this->estado, PDO::PARAM_STR);
         $sql->bindParam(7, $this->descripcion, PDO::PARAM_STR);
     
         // execute query
