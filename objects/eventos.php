@@ -77,27 +77,61 @@ class Evento{
     }
 
     // delete the product
-function delete(){
- 
-    // delete query
-    $query = "DELETE FROM " . $this->table_name . " WHERE id_evento = ?";
- 
-    // prepare query
-    $sql = $this->conn->prepare($query);
- 
-    // sanitize
-    $this->id_evento=htmlspecialchars(strip_tags($this->id_evento));
- 
-    // bind id of record to delete
-    $sql->bindParam(1, $this->id_evento);
- 
-    // execute query
-    if($sql->execute()){
-        return true;
-    }
- 
-    return false;
+    function delete(){
      
-}
+        // delete query
+        $query = "DELETE FROM " . $this->table_name . " WHERE id_evento = ?";
+     
+        // prepare query
+        $sql = $this->conn->prepare($query);
+     
+        // sanitize
+        $this->id_evento=htmlspecialchars(strip_tags($this->id_evento));
+     
+        // bind id of record to delete
+        $sql->bindParam(1, $this->id_evento);
+     
+        // execute query
+        if($sql->execute()){
+            return true;
+        }
+     
+        return false;
+         
+    }
+    function readOne(){
+     
+        // query to read single record
+        $query = "SELECT
+                    *
+                FROM
+                    " . $this->table_name . "
+                WHERE
+                    id_evento = ?
+                LIMIT
+                    0,1";
+     
+        // prepare query statement
+        $sql = $this->conn->prepare( $query );
+     
+        // bind id of product to be updated
+        $sql->bindParam(1, $this->id_evento);
+     
+        // execute query
+        $sql->execute();
+     
+        // get retrieved row
+        $row = $sql->fetch(PDO::FETCH_ASSOC);
+     
+        // set values to object properties
+        $this->id_evento = $row['id_evento'];
+        $this->nombre = $row['nombre'];
+        $this->fecha_inicio = $row['fecha_inicio'];
+        $this->fecha_fin = $row['fecha_fin'];
+        $this->costo = $row['costo'];
+        $this->estado = $row['estado'];
+        $this->descripcion = $row['descripcion'];
+        $this->ubicacion = $row['ubicacion'];
+    }
 }
 ?>
