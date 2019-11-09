@@ -79,5 +79,7 @@ FOREIGN KEY (id_evento) REFERENCES eventos(id_evento)
 ON UPDATE CASCADE
 ON DELETE CASCADE;
 
-ALTER TABLE eventos MODIFY costo varchar(5) not null;
+ALTER TABLE eventos MODIFY estado varchar(1) not null;
 
+insert into eventos(nombre, fecha_inicio, fecha_fin, ubicacion, costo, estado, descripcion)
+	values('sss', '2222-02-02', '2222-02-02', 'sss', '200', FALSE, 'sss');

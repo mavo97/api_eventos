@@ -75,5 +75,29 @@ class Evento{
      
         return $sql;
     }
+
+    // delete the product
+function delete(){
+ 
+    // delete query
+    $query = "DELETE FROM " . $this->table_name . " WHERE id_evento = ?";
+ 
+    // prepare query
+    $sql = $this->conn->prepare($query);
+ 
+    // sanitize
+    $this->id_evento=htmlspecialchars(strip_tags($this->id_evento));
+ 
+    // bind id of record to delete
+    $sql->bindParam(1, $this->id_evento);
+ 
+    // execute query
+    if($sql->execute()){
+        return true;
+    }
+ 
+    return false;
+     
+}
 }
 ?>
