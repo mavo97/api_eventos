@@ -51,5 +51,32 @@ class Actividad{
         return false;
         
     }
+    function readActivities(){
+ 
+        // select all query
+        $query = "SELECT
+                    *
+                FROM
+                    " . $this->table_name . "
+                WHERE
+                    id_evento = ?
+                ORDER BY
+                    fecha_inicio ASC";
+     
+        // prepare query statement
+        $sql = $this->conn->prepare($query);
+     
+        // sanitize
+        
+        // bind
+        $sql->bindParam(1, $this->id_evento);
+
+     
+        // execute query
+        $sql->execute();
+     
+     
+        return $sql;
+    }
 }
 ?>

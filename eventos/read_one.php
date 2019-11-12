@@ -20,7 +20,7 @@ $evento = new Evento($db);
 // set ID property of record to read
 $evento->id_evento = isset($_GET['id']) ? $_GET['id'] : die();
  
-// read the details of product to be edited
+// read the details of event to be edited
 $evento->readOne();
  
 if($evento->nombre!=null){
