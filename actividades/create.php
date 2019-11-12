@@ -9,13 +9,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 // get database connection
 include_once '../config/database.php';
  
-// instantiate product object
-include_once '../objects/eventos.php';
+// instantiate actividad object
+include_once '../objects/actividades.php';
  
 $database = new Database();
 $db = $database->getConnection();
  
-$evento = new Evento($db);
+$actividad = new Actividad($db);
  
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
@@ -25,29 +25,25 @@ if(
     !empty($data->nombre) &&
     !empty($data->fecha_inicio) &&
     !empty($data->fecha_fin) &&
-    !empty($data->ubicacion) &&
-    !empty($data->costo) &&
-    !empty($data->estado) &&
-    !empty($data->descripcion)
+    !empty($data->descripcion) &&
+    !empty($data->id_evento)
 ){
  
-    // set event property values
-    $evento->nombre = $data->nombre;
-    $evento->fecha_inicio = $data->fecha_inicio;
-    $evento->fecha_fin = $data->fecha_fin;
-    $evento->ubicacion = $data->ubicacion;
-    $evento->costo = $data->costo;
-    $evento->estado = $data->estado;
-    $evento->descripcion = $data->descripcion;
+    // set actividad property values
+    $actividad->nombre = $data->nombre;
+    $actividad->fecha_inicio = $data->fecha_inicio;
+    $actividad->fecha_fin = $data->fecha_fin;
+    $actividad->descripcion = $data->descripcion;
+    $actividad->id_evento = $data->id_evento;
  
     // create the actividad
-    if($evento->create()){
+    if($actividad->create()){
  
         // set response code - 201 created
         http_response_code(201);
  
         // tell the user
-        echo json_encode(array("message" => "El evento fue creado."));
+        echo json_encode(array("message" => "La actividad fue creada."));
     }
  
     // if unable to create the actividad, tell the user
@@ -57,7 +53,7 @@ if(
         http_response_code(503);
  
         // tell the user
-        echo json_encode(array("message" => "No se pudo crear el evento." ));
+        echo json_encode(array("message" => "No se pudo crear la actividad."));
     }
 }
  
@@ -68,6 +64,6 @@ else{
     http_response_code(400);
  
     // tell the user
-    echo json_encode(array("message" => "No se pudo crear el evento. Datos incompletos!", $data));
+    echo json_encode(array("message" => "No se pudo crear la actividad. Datos incompletos!", $data));
 }
 ?>

@@ -133,5 +133,52 @@ class Evento{
         $this->descripcion = $row['descripcion'];
         $this->ubicacion = $row['ubicacion'];
     }
+    // update the actividad
+    function update(){
+     
+        // update query
+        $query = "UPDATE
+                    " . $this->table_name . "
+                SET
+                    nombre = ?,
+                    fecha_inicio = ?,
+                    fecha_fin = ?,
+                    ubicacion = ?,
+                    costo = ?,
+                    estado = ?,
+                    descripcion = ?
+                WHERE
+                    id_evento = ?";
+     
+        // prepare query statement
+        $sql = $this->conn->prepare($query);
+     
+        // sanitize
+        $this->nombre=htmlspecialchars(strip_tags($this->nombre));
+        $this->fecha_inicio=htmlspecialchars(strip_tags($this->fecha_inicio));
+        $this->fecha_fin=htmlspecialchars(strip_tags($this->fecha_fin));
+        $this->ubicacion=htmlspecialchars(strip_tags($this->ubicacion));
+        $this->costo=htmlspecialchars(strip_tags($this->costo));
+        $this->estado=htmlspecialchars(strip_tags($this->estado));
+        $this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
+        $this->id_evento=htmlspecialchars(strip_tags($this->id_evento));
+     
+        // bind new values
+        $sql->bindParam(1, $this->nombre, PDO::PARAM_STR);
+        $sql->bindParam(2, $this->fecha_inicio, PDO::PARAM_STR);
+        $sql->bindParam(3, $this->fecha_fin, PDO::PARAM_STR);
+        $sql->bindParam(4, $this->ubicacion, PDO::PARAM_STR);
+        $sql->bindParam(5, $this->costo, PDO::PARAM_STR);
+        $sql->bindParam(6, $this->estado, PDO::PARAM_STR);
+        $sql->bindParam(7, $this->descripcion, PDO::PARAM_STR);
+        $sql->bindParam(8, $this->id_evento, PDO::PARAM_STR);
+     
+        // execute the query
+        if($sql->execute()){
+            return true;
+        }
+     
+        return false;
+    }
 }
 ?>
