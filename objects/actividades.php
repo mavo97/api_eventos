@@ -18,7 +18,7 @@ class Actividad{
         $this->conn = $db;
     }
 
-    // create event
+    // create actividad
     function create(){
     
         // query to insert record

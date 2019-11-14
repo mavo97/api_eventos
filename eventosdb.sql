@@ -81,3 +81,4 @@ ON DELETE CASCADE;
 
 ALTER TABLE eventos MODIFY estado varchar(1) not null;
 
+ALTER TABLE sala_taller MODIFY estado varchar(1) not null;
