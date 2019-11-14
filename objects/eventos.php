@@ -133,7 +133,7 @@ class Evento{
         $this->descripcion = $row['descripcion'];
         $this->ubicacion = $row['ubicacion'];
     }
-    // update the actividad
+    // update the evento
     function update(){
      
         // update query
