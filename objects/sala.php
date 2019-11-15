@@ -47,5 +47,30 @@ class Sala{
         return false;
         
     }
+    function readSalas(){
+ 
+        // select all query
+        $query = "SELECT
+                    *
+                FROM
+                    " . $this->table_name . "
+                WHERE
+                    id_actividad = ?";
+     
+        // prepare query statement
+        $sql = $this->conn->prepare($query);
+     
+        // sanitize
+        
+        // bind
+        $sql->bindParam(1, $this->id_actividad);
+
+     
+        // execute query
+        $sql->execute();
+     
+     
+        return $sql;
+    }
 }
 ?>
