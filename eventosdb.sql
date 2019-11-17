@@ -80,5 +80,47 @@ ON UPDATE CASCADE
 ON DELETE CASCADE;
 
 ALTER TABLE eventos MODIFY estado varchar(1) not null;
-
+#-------------------------Update-----Apartir de aqui actualización-------
+#UPDATE
+# Modificaciones necesarias para funcionamiento correcto de la aplicación
 ALTER TABLE sala_taller MODIFY estado varchar(1) not null;
+
+ALTER TABLE usuarios MODIFY rol_usuario varchar(1) not null;
+ALTER TABLE usuarios MODIFY contrasena text not null;
+ALTER TABLE usuarios MODIFY telefono varchar(10) not null;
+DROP TABLE usuarios_evento;
+DROP TABLE usuarios_sala;
+ALTER TABLE usuarios DROP COLUMN curp;
+ALTER TABLE usuarios ADD PRIMARY KEY (id_usuario);
+ALTER TABLE usuarios MODIFY id_usuario int unsigned not null auto_increment;
+CREATE TABLE usuarios_sala (id_sala int unsigned not null, id_usuario int unsigned not null);
+/* Creación de llave foranea id_sala */
+ALTER TABLE usuarios_sala 
+ADD CONSTRAINT FK_idsala 
+FOREIGN KEY (id_sala) REFERENCES sala_taller(id_sala) 
+ON UPDATE CASCADE
+ON DELETE CASCADE;
+
+/* Creación de llave foranea curp_usuario */
+ALTER TABLE usuarios_sala 
+ADD CONSTRAINT FK_idusuario 
+FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) 
+ON UPDATE CASCADE
+ON DELETE CASCADE;
+
+/* Creación de tabla usuarios_evento */
+CREATE TABLE usuarios_evento (id_evento int unsigned not null, id_usuario int unsigned not null );
+
+/* Creación de llave foranea curp_usuario */
+ ALTER TABLE usuarios_evento 
+ADD CONSTRAINT FK_curp 
+FOREIGN KEY (id_usuario) REFERENCES usuarios(id_usuario) 
+ON UPDATE CASCADE
+ON DELETE CASCADE;
+
+/* Creación de llave foranea id_evento */
+ALTER TABLE usuarios_evento 
+ADD CONSTRAINT FK_idevent 
+FOREIGN KEY (id_evento) REFERENCES eventos(id_evento) 
+ON UPDATE CASCADE
+ON DELETE CASCADE;
