@@ -56,7 +56,42 @@ class Usuario{
     }
      
     // emailExists() 
+    function emailExists(){
 
+    $query = "SELECT id_usuario, nombre, apellidos, telefono, correo, rol_usuario, contrasena
+            FROM " . $this->table_name . "
+            WHERE correo = ?
+            LIMIT 0,1";
+
+    $sql = $this->conn->prepare( $query );
+
+    $this->correo=htmlspecialchars(strip_tags($this->correo));
+
+    $sql->bindParam(1, $this->correo);
+
+    $sql->execute();
+
+    $num = $sql->rowCount();
+
+    if($num>0){
+
+        $row = $sql->fetch(PDO::FETCH_ASSOC);
+
+        $this->id_usuario = $row['id_usuario'];
+        $this->nombre = $row['nombre'];
+        $this->apellidos = $row['apellidos'];
+        $this->contrasena = $row['contrasena'];
+        $this->correo = $row['correo'];
+        $this->telefono = $row['telefono'];
+        $this->rol_usuario = $row['rol_usuario'];
+
+
+        return true;
+    }
+
+    return false;
+    }
+ 
 
 }
 ?>

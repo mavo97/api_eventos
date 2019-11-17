@@ -79,22 +79,34 @@ FOREIGN KEY (id_evento) REFERENCES eventos(id_evento)
 ON UPDATE CASCADE
 ON DELETE CASCADE;
 
-ALTER TABLE eventos MODIFY estado varchar(1) not null;
 #-------------------------Update-----Apartir de aqui actualización-------
 #UPDATE
 # Modificaciones necesarias para funcionamiento correcto de la aplicación
+
+ALTER TABLE eventos MODIFY estado varchar(1) not null;
+
 ALTER TABLE sala_taller MODIFY estado varchar(1) not null;
 
 ALTER TABLE usuarios MODIFY rol_usuario varchar(1) not null;
+
 ALTER TABLE usuarios MODIFY contrasena text not null;
+
 ALTER TABLE usuarios MODIFY telefono varchar(10) not null;
+
 DROP TABLE usuarios_evento;
+
 DROP TABLE usuarios_sala;
+
 ALTER TABLE usuarios DROP COLUMN curp;
+
 ALTER TABLE usuarios ADD PRIMARY KEY (id_usuario);
+
 ALTER TABLE usuarios MODIFY id_usuario int unsigned not null auto_increment;
+
 CREATE TABLE usuarios_sala (id_sala int unsigned not null, id_usuario int unsigned not null);
 /* Creación de llave foranea id_sala */
+
+
 ALTER TABLE usuarios_sala 
 ADD CONSTRAINT FK_idsala 
 FOREIGN KEY (id_sala) REFERENCES sala_taller(id_sala) 
