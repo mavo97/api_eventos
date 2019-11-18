@@ -35,19 +35,24 @@ if(
 	$usuario->correo = $data->correo;
 	$usuario->rol_usuario = $data->rol_usuario;
 	$usuario->contrasena = $data->contrasena;
+	$email_exists = $usuario->emailExists();
 
-	if ($usuario->create()){
+	if($email_exists){
+		echo json_encode(array("message" => "El correo ya esta registrado."));
+	}else{
+		if ($usuario->create()){
 		// set response code
 	    http_response_code(200);
 	 
 	    // display message: user was created
 	    echo json_encode(array("message" => "Cuenta creada correctamente."));
-	}else{
+	}	else{
 		 // set response code
 	    http_response_code(503);
 	 
 	    // display message: unable to create user
 	    echo json_encode(array("message" => "No se pudo crear la cuenta."));
+	}
 	}
     
 }else{
