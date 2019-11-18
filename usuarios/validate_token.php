@@ -1,6 +1,6 @@
 <?php
 // required headers
-header("Access-Control-Allow-Origin: http://localhost/rest-api-authentication-example/");
+header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
@@ -33,7 +33,7 @@ if($jwt){
  
         // show user details
         echo json_encode(array(
-            "message" => "Access permitido.",
+            "message" => "Acceso permitido.",
             "data" => $decoded->data
         ));
  

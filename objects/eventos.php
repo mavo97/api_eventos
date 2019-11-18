@@ -75,6 +75,26 @@ class Evento{
      
         return $sql;
     }
+    function availables(){
+ 
+        // select all query
+        $query = "SELECT
+                    *
+                FROM
+                    " . $this->table_name . "
+                WHERE estado = 'A'
+                
+                ORDER BY
+                    fecha_inicio ASC";
+     
+        // prepare query statement
+        $sql = $this->conn->prepare($query);
+     
+        // execute query
+        $sql->execute();
+     
+        return $sql;
+    }
 
     // delete the product
     function delete(){
