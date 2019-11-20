@@ -43,6 +43,11 @@ if($num>0){
             "id_usuario" => $id_usuario,
             "nombre" => $nombre,
             "correo" => $correo,
+            "fecha_inicio" => $fecha_inicio,
+            "fecha_fin" => $fecha_fin,
+            "estado" => $estado,
+            "descripcion" => $descripcion,
+            "ubicacion" => $ubicacion
 
         );
  

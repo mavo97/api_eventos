@@ -83,7 +83,8 @@ class UsuariosEvento{
      
         // query to read single record
 
-        $query = "SELECT u.correo, e.nombre, ue.id_evento, ue.id_usuario
+        $query = "SELECT u.correo, e.nombre, ue.id_evento, ue.id_usuario,
+        e.fecha_inicio, e.fecha_fin, e.estado, e.descripcion, e.ubicacion
             FROM
                  usuarios u
             INNER JOIN
