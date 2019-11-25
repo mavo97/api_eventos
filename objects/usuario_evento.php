@@ -92,7 +92,7 @@ class UsuariosEvento{
             LEFT JOIN 
                  eventos e on e.id_evento = ue.id_evento
             WHERE 
-                 u.id_usuario = ?";
+                 u.id_usuario = ? AND e.estado = 'A'";
      
         // prepare query statement
         $sql = $this->conn->prepare( $query );

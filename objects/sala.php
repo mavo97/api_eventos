@@ -11,6 +11,7 @@ class Sala{
     public $nombre;
     public $estado;
     public $ubicacion;
+    public $id_usuario;
  
     // constructor with $db as database connection
     public function __construct($db){
@@ -47,6 +48,7 @@ class Sala{
         return false;
         
     }
+    // Salas para usuarios
     function readSalas(){
  
         // select all query
@@ -55,7 +57,7 @@ class Sala{
                 FROM
                     " . $this->table_name . "
                 WHERE
-                    id_actividad = ?";
+                    id_actividad = ? AND estado = 'A'";
      
         // prepare query statement
         $sql = $this->conn->prepare($query);
@@ -162,6 +164,30 @@ class Sala{
         }
      
         return false;
+    }
+    function deleteUsuario(){
+     
+        // delete query
+        $query = "DELETE FROM usuarios_sala WHERE id_usuario = ?
+        AND id_sala = ?";
+     
+        // prepare query
+        $sql = $this->conn->prepare($query);
+     
+        // sanitize
+        $this->id_usuario=htmlspecialchars(strip_tags($this->id_usuario));
+        $this->id_sala=htmlspecialchars(strip_tags($this->id_sala));
+        // bind id of record to delete
+        $sql->bindParam(1, $this->id_usuario);
+        $sql->bindParam(2, $this->id_sala);
+     
+        // execute query
+        if($sql->execute()){
+            return true;
+        }
+     
+        return false;
+         
     }
 }
 ?>
