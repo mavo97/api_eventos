@@ -109,5 +109,32 @@ class UsuariosEvento{
 
 
     }
+    function usEnEvento(){
+     
+        // query to read single record
+
+        $query = "SELECT u.correo, u.apellidos, u.nombre as nombreUsuario,
+         ue.id_evento, ue.id_usuario
+            FROM
+                 usuarios u
+            INNER JOIN
+                 usuarios_evento ue on u.id_usuario = ue.id_usuario
+
+            WHERE
+                 ue.id_evento = ? ";
+     
+        // prepare query statement
+        $sql = $this->conn->prepare( $query );
+     
+        // bind id of product to be updated
+        $sql->bindParam(1, $this->id_evento);
+     
+        // execute query
+        $sql->execute();
+     
+        // get retrieved row
+        return $sql;
+     
+    }
 }
 ?>
