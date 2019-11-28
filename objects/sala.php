@@ -189,5 +189,20 @@ class Sala{
         return false;
          
     }
+    function readAll(){
+        $query = "SELECT e.nombre as nombreEvento, a.nombre as nombreActividad, s.id_sala, s.ubicacion, s.estado, s.nombre as nombreSala
+            FROM
+                 eventos e
+            INNER JOIN
+                 actividades a on e.id_evento = a.id_evento
+            LEFT JOIN 
+                 sala_taller s on s.id_actividad = a.id_actividad";
+
+        $sql = $this->conn->prepare($query);
+        $sql->execute();
+     
+    
+        return $sql;
+    }
 }
 ?>

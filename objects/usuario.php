@@ -91,6 +91,39 @@ class Usuario{
 
     return false;
     }
+        function readUsers(){
+        $query = "SELECT id_usuario, nombre, apellidos, telefono, correo
+            FROM
+                 usuarios 
+            WHERE rol_usuario = 'U'";
+
+        $sql = $this->conn->prepare($query);
+        $sql->execute();
+     
+    
+        return $sql;
+    }
+    function deleteUsuario(){
+     
+        // delete query
+        $query = "DELETE FROM usuarios WHERE id_usuario = ?";
+     
+        // prepare query
+        $sql = $this->conn->prepare($query);
+     
+        // sanitize
+        $this->id_usuario=htmlspecialchars(strip_tags($this->id_usuario));
+        // bind id of record to delete
+        $sql->bindParam(1, $this->id_usuario);
+     
+        // execute query
+        if($sql->execute()){
+            return true;
+        }
+     
+        return false;
+         
+    }
  
 
 }
