@@ -1,15 +1,25 @@
 <?php
+
+require '../vendor/autoload.php';
+$dotenv = Dotenv\Dotenv::createImmutable('/var/www/html/api_eventos');
+$dotenv->load();
+
 class Database{
  
-    private $host = "us-cdbr-iron-east-05.cleardb.net";
-    private $db_name = "heroku_672b1957c505377";
-    private $username = "bba6b3588a5efb";
-    private $password = "d9df1570";
+    private $host;
+    private $db_name;
+    private $username;
+    private $password;
     public $conn;
  
     // get the database connection
     public function getConnection(){
- 
+
+        $this->host = getenv('DDBB_HOST');
+        $this->db_name  = getenv('DDBB_DBNAME');
+        $this->username = getenv('DDBB_USER');
+        $this->password = getenv('DDBB_PASSWORD');
+
         $this->conn = null;
  
         try{
