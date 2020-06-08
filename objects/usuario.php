@@ -13,6 +13,13 @@ class Usuario{
     public $correo;
     public $rol_usuario;
     public $contrasena;
+    
+    public $no_control;
+    public $carrera;
+    public $rfc;
+    public $ocupacion;
+    public $departamento;
+    public $direccion;
  
     // constructor with $db as database connection
     public function __construct($db){
@@ -34,7 +41,7 @@ class Usuario{
         $this->correo=htmlspecialchars(strip_tags($this->correo));
         $this->rol_usuario=htmlspecialchars(strip_tags($this->rol_usuario));
         $this->contrasena=htmlspecialchars(strip_tags($this->contrasena));
-
+        
         $hash = password_hash($this->contrasena, PASSWORD_BCRYPT);
 
 
@@ -54,7 +61,123 @@ class Usuario{
      
         return false;
     }
+
+    // create new user record
+    function createPersonal(){
      
+        $query = "INSERT INTO " . $this->table_name . "(nombre, apellidos, telefono, correo,
+        rol_usuario, contrasena, departamento, ocupacion, rfc) VALUES (?,?,?,?,?,?,?,?,?);";
+
+     
+        // prepare the query
+        $sql = $this->conn->prepare($query);
+     
+        $this->nombre=htmlspecialchars(strip_tags($this->nombre));
+        $this->apellidos=htmlspecialchars(strip_tags($this->apellidos));
+        $this->telefono=htmlspecialchars(strip_tags($this->telefono));
+        $this->correo=htmlspecialchars(strip_tags($this->correo));
+        $this->rol_usuario=htmlspecialchars(strip_tags($this->rol_usuario));
+        $this->contrasena=htmlspecialchars(strip_tags($this->contrasena));
+        $this->departamento=htmlspecialchars(strip_tags($this->departamento));
+        $this->ocupacion=htmlspecialchars(strip_tags($this->ocupacion));
+        $this->rfc=htmlspecialchars(strip_tags($this->rfc));
+        
+        $hash = password_hash($this->contrasena, PASSWORD_BCRYPT);
+
+
+        $sql->bindParam(1, $this->nombre, PDO::PARAM_STR);
+        $sql->bindParam(2, $this->apellidos, PDO::PARAM_STR);
+        $sql->bindParam(3, $this->telefono, PDO::PARAM_STR);
+        $sql->bindParam(4, $this->correo, PDO::PARAM_STR);
+        $sql->bindParam(5, $this->rol_usuario, PDO::PARAM_STR);
+        $sql->bindParam(6, $hash, PDO::PARAM_STR);
+        $sql->bindParam(7, $this->departamento, PDO::PARAM_STR);
+        $sql->bindParam(8, $this->ocupacion, PDO::PARAM_STR);
+        $sql->bindParam(9, $this->rfc, PDO::PARAM_STR);
+
+     
+       
+     
+        if($sql->execute()){
+            return true;
+        }
+     
+        return false;
+    }
+     
+    function createAlumno(){
+     
+        $query = "INSERT INTO " . $this->table_name . "(nombre, apellidos, telefono, correo,
+        rol_usuario, contrasena, no_control, carrera) VALUES (?,?,?,?,?,?,?,?);";
+
+     
+        // prepare the query
+        $sql = $this->conn->prepare($query);
+     
+        $this->nombre=htmlspecialchars(strip_tags($this->nombre));
+        $this->apellidos=htmlspecialchars(strip_tags($this->apellidos));
+        $this->telefono=htmlspecialchars(strip_tags($this->telefono));
+        $this->correo=htmlspecialchars(strip_tags($this->correo));
+        $this->rol_usuario=htmlspecialchars(strip_tags($this->rol_usuario));
+        $this->contrasena=htmlspecialchars(strip_tags($this->contrasena));
+        $this->no_control=htmlspecialchars(strip_tags($this->no_control));
+        $this->carrera=htmlspecialchars(strip_tags($this->carrera));
+        
+        $hash = password_hash($this->contrasena, PASSWORD_BCRYPT);
+
+
+        $sql->bindParam(1, $this->nombre, PDO::PARAM_STR);
+        $sql->bindParam(2, $this->apellidos, PDO::PARAM_STR);
+        $sql->bindParam(3, $this->telefono, PDO::PARAM_STR);
+        $sql->bindParam(4, $this->correo, PDO::PARAM_STR);
+        $sql->bindParam(5, $this->rol_usuario, PDO::PARAM_STR);
+        $sql->bindParam(6, $hash, PDO::PARAM_STR);
+        $sql->bindParam(7, $this->no_control, PDO::PARAM_STR);
+        $sql->bindParam(8, $this->carrera, PDO::PARAM_STR);     
+       
+     
+        if($sql->execute()){
+            return true;
+        }
+     
+        return false;
+    }
+
+    function createExterno(){
+     
+        $query = "INSERT INTO " . $this->table_name . "(nombre, apellidos, telefono, correo,
+        rol_usuario, contrasena, direccion) VALUES (?,?,?,?,?,?,?);";
+
+     
+        // prepare the query
+        $sql = $this->conn->prepare($query);
+     
+        $this->nombre=htmlspecialchars(strip_tags($this->nombre));
+        $this->apellidos=htmlspecialchars(strip_tags($this->apellidos));
+        $this->telefono=htmlspecialchars(strip_tags($this->telefono));
+        $this->correo=htmlspecialchars(strip_tags($this->correo));
+        $this->rol_usuario=htmlspecialchars(strip_tags($this->rol_usuario));
+        $this->contrasena=htmlspecialchars(strip_tags($this->contrasena));
+        $this->direccion=htmlspecialchars(strip_tags($this->direccion));
+        
+        $hash = password_hash($this->contrasena, PASSWORD_BCRYPT);
+
+
+        $sql->bindParam(1, $this->nombre, PDO::PARAM_STR);
+        $sql->bindParam(2, $this->apellidos, PDO::PARAM_STR);
+        $sql->bindParam(3, $this->telefono, PDO::PARAM_STR);
+        $sql->bindParam(4, $this->correo, PDO::PARAM_STR);
+        $sql->bindParam(5, $this->rol_usuario, PDO::PARAM_STR);
+        $sql->bindParam(6, $hash, PDO::PARAM_STR);
+        $sql->bindParam(7, $this->direccion, PDO::PARAM_STR);       
+     
+        if($sql->execute()){
+            return true;
+        }
+     
+        return false;
+    }
+
     // emailExists() 
     function emailExists(){
 
