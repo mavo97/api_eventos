@@ -16,6 +16,7 @@ class UsuariosSala{
     public $costo;
     public $estado;
     public $descripcion;
+    public $rol_usuario;
 
  
     // constructor with $db as database connection
@@ -118,7 +119,7 @@ class UsuariosSala{
      
         // query to read single record
 
-        $query = "SELECT u.correo, u.apellidos, u.nombre as nombreUsuario,
+        $query = "SELECT u.correo, u.apellidos,u.rol_usuario, u.nombre as nombreUsuario, 
          us.id_sala, us.id_usuario
             FROM
                  usuarios u

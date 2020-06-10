@@ -28,20 +28,23 @@ if(
     !empty($data->fecha_inicio) &&
     !empty($data->fecha_fin) &&
     !empty($data->ubicacion) &&
-    !empty($data->costo) &&
+    !empty($data->costo) || empty($data->costo) &&
     !empty($data->estado) &&
-    !empty($data->descripcion)
+    !empty($data->descripcion) &&
+    !empty($data->cupo)  || empty($data->cupo)
 ){
 	// set ID property of event to be edited
 	$evento->id_evento = $data->id_evento;
 	// set event property values
 	$evento->nombre = $data->nombre;
-	$evento->fecha_inicio = $data->fecha_inicio;
-	$evento->fecha_fin = $data->fecha_fin;
-	$evento->ubicacion = $data->ubicacion;
-	$evento->costo = $data->costo;
-	$evento->estado = $data->estado;
-	$evento->descripcion = $data->descripcion;
+    $evento->fecha_inicio = $data->fecha_inicio;
+    $evento->fecha_fin = $data->fecha_fin;
+    $evento->ubicacion = $data->ubicacion;
+    $evento->costo = $data->costo;
+    $evento->estado = $data->estado;
+    $evento->descripcion = $data->descripcion;
+    $evento->cupo = $data->cupo;
+ 
 	// update the event
 	if($evento->update()){
 	 

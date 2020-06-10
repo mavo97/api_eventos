@@ -26,9 +26,10 @@ if(
     !empty($data->fecha_inicio) &&
     !empty($data->fecha_fin) &&
     !empty($data->ubicacion) &&
-    !empty($data->costo) &&
+    !empty($data->costo) || empty($data->costo) &&
     !empty($data->estado) &&
-    !empty($data->descripcion)
+    !empty($data->descripcion) &&
+    !empty($data->cupo)  || empty($data->cupo)
 ){
  
     // set event property values
@@ -39,6 +40,7 @@ if(
     $evento->costo = $data->costo;
     $evento->estado = $data->estado;
     $evento->descripcion = $data->descripcion;
+    $evento->cupo = $data->cupo;
  
     // create the actividad
     if($evento->create()){

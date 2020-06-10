@@ -15,7 +15,9 @@ class Evento{
     public $costo;
     public $estado;
     public $descripcion;
- 
+    public $cupo;
+    public $contador;
+    
     // constructor with $db as database connection
     public function __construct($db){
         $this->conn = $db;
@@ -27,7 +29,7 @@ class Evento{
         // query to insert record
         $query = "INSERT INTO
                     " . $this->table_name . "(nombre, fecha_inicio, fecha_fin, 
-                    ubicacion, costo, estado, descripcion) VALUES (?,?,?,?,?,?,? );";
+                    ubicacion, costo, estado, descripcion, cupo) VALUES (?,?,?,?,?,?,?,?);";
     
         // prepare query
         $sql = $this->conn->prepare($query);
@@ -40,7 +42,8 @@ class Evento{
         $this->costo=htmlspecialchars(strip_tags($this->costo));
         $this->estado=htmlspecialchars(strip_tags($this->estado));
         $this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
-    
+        $this->cupo=htmlspecialchars(strip_tags($this->cupo));
+
         // bind values
         $sql->bindParam(1, $this->nombre,PDO::PARAM_STR);
         $sql->bindParam(2, $this->fecha_inicio, PDO::PARAM_STR);
@@ -49,6 +52,7 @@ class Evento{
         $sql->bindParam(5, $this->costo, PDO::PARAM_STR);
         $sql->bindParam(6, $this->estado, PDO::PARAM_STR);
         $sql->bindParam(7, $this->descripcion, PDO::PARAM_STR);
+        $sql->bindParam(8, $this->cupo, PDO::PARAM_STR);
     
         // execute query
         if($sql->execute()){
@@ -64,7 +68,7 @@ class Evento{
         $query = "SELECT
                     *
                 FROM
-                    " . $this->table_name . "
+                    " . $this->table_name . " WHERE estado = 'A'
                 ORDER BY
                     fecha_inicio ASC";
      
@@ -76,17 +80,37 @@ class Evento{
      
         return $sql;
     }
-    function availables(){
+
+    function read2(){
  
         // select all query
         $query = "SELECT
                     *
                 FROM
-                    " . $this->table_name . "
-                WHERE estado = 'A'
-                
+                    " . $this->table_name . " WHERE estado = 'I'
                 ORDER BY
                     fecha_inicio ASC";
+     
+        // prepare query statement
+        $sql = $this->conn->prepare($query);
+     
+        // execute query
+        $sql->execute();
+     
+        return $sql;
+    }
+
+    function availables(){
+ 
+        // select all query
+        $query = "SELECT e.id_evento, e.nombre, e.fecha_inicio, e.fecha_fin, e.ubicacion, e.costo, e.estado, e.descripcion,
+        e.cupo,
+        count(ue.id_evento) as contador from eventos e JOIN usuarios_evento ue ON e.id_evento = ue.id_evento
+     GROUP BY e.id_evento UNION SELECT e.id_evento, e.nombre, e.fecha_inicio, e.fecha_fin, e.ubicacion,
+        e.costo, e.estado, e.descripcion, e.cupo, count(ue.id_evento) as contador
+ FROM eventos e LEFT JOIN usuarios_evento ue
+ ON e.id_evento = ue.id_evento
+ WHERE ue.id_evento IS NULL OR ue.id_evento = 1 GROUP BY e.id_evento";
      
         // prepare query statement
         $sql = $this->conn->prepare($query);
@@ -153,6 +177,7 @@ class Evento{
         $this->estado = $row['estado'];
         $this->descripcion = $row['descripcion'];
         $this->ubicacion = $row['ubicacion'];
+        $this->cupo = $row['cupo'];
     }
     // update the evento
     function update(){
@@ -167,7 +192,8 @@ class Evento{
                     ubicacion = ?,
                     costo = ?,
                     estado = ?,
-                    descripcion = ?
+                    descripcion = ?,
+                    cupo = ?
                 WHERE
                     id_evento = ?";
      
@@ -183,6 +209,7 @@ class Evento{
         $this->estado=htmlspecialchars(strip_tags($this->estado));
         $this->descripcion=htmlspecialchars(strip_tags($this->descripcion));
         $this->id_evento=htmlspecialchars(strip_tags($this->id_evento));
+        $this->cupo=htmlspecialchars(strip_tags($this->cupo));
      
         // bind new values
         $sql->bindParam(1, $this->nombre, PDO::PARAM_STR);
@@ -192,8 +219,9 @@ class Evento{
         $sql->bindParam(5, $this->costo, PDO::PARAM_STR);
         $sql->bindParam(6, $this->estado, PDO::PARAM_STR);
         $sql->bindParam(7, $this->descripcion, PDO::PARAM_STR);
-        $sql->bindParam(8, $this->id_evento, PDO::PARAM_STR);
-     
+        $sql->bindParam(8, $this->cupo, PDO::PARAM_STR);
+        $sql->bindParam(9, $this->id_evento, PDO::PARAM_STR);
+    
         // execute the query
         if($sql->execute()){
             return true;

@@ -43,7 +43,9 @@ if($num>0){
             "ubicacion" => $ubicacion,
             "costo" => $costo,
             "estado" => $estado,
-            "descripcion" => $descripcion
+            "descripcion" => $descripcion,
+            "cupo" => $cupo,
+            "contador" => $contador
         );
  
         array_push($eventos_arr["records"], $evento_item);
