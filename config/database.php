@@ -1,8 +1,8 @@
 <?php
-
+/*
 require '../vendor/autoload.php';
 $dotenv = Dotenv\Dotenv::createImmutable('/var/www/html/api_eventos');
-$dotenv->load();
+$dotenv->load();*/
 
 class Database{
  
