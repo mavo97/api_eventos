@@ -215,10 +215,10 @@ class Usuario{
     return false;
     }
         function readUsers(){
-        $query = "SELECT id_usuario, nombre, apellidos, telefono, correo
+        $query = "SELECT id_usuario, nombre, apellidos, telefono, correo, rol_usuario
             FROM
                  usuarios 
-            WHERE rol_usuario = 'U'";
+            WHERE rol_usuario != 'A' ORDER BY rol_usuario";
 
         $sql = $this->conn->prepare($query);
         $sql->execute();
@@ -246,6 +246,35 @@ class Usuario{
      
         return false;
          
+    }
+
+    function cambiarContrasena(){
+        $query = "UPDATE
+                    " . $this->table_name . "
+                SET
+                    contrasena = ?
+                WHERE
+                    id_usuario = ?";
+        // prepare query statement
+        $sql = $this->conn->prepare($query);
+     
+        // sanitize
+        $this->contrasena=htmlspecialchars(strip_tags($this->contrasena));
+        
+        $hash = password_hash($this->contrasena, PASSWORD_BCRYPT);
+        // bind new values
+        $sql->bindParam(1, $hash, PDO::PARAM_STR);
+        $sql->bindParam(2, $this->id_usuario, PDO::PARAM_STR);
+        
+      
+    
+        // execute the query
+        if($sql->execute()){
+            return true;
+        }
+     
+        return false;
+
     }
  
 

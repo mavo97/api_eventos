@@ -43,7 +43,8 @@ if($num>0){
             "id_usuario" => $id_usuario,
             "correo" => $correo,
             "nombreUsuario" => $nombreUsuario,
-            "apellidos" => $apellidos
+            "apellidos" => $apellidos,
+            "rol_usuario" => $rol_usuario
         );
  
         array_push($salasUs["records"], $salasUs_item);

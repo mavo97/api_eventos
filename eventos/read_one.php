@@ -33,7 +33,8 @@ if($evento->nombre!=null){
         "ubicacion" => $evento->ubicacion,
         "costo" => $evento->costo,
         "estado" => $evento->estado,
-        "descripcion" => $evento->descripcion
+        "descripcion" => $evento->descripcion,
+        "cupo" => $evento->cupo
     );
  
     // set response code - 200 OK

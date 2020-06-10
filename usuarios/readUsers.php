@@ -40,7 +40,8 @@ if($num>0){
             "nombre" => $nombre,
             "apellidos" => $apellidos,
             "telefono" => $telefono,
-            "correo" => $correo
+            "correo" => $correo,
+            "rol_usuario" => $rol_usuario
         );
  
         array_push($usersarr["records"], $user_item);

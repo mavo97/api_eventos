@@ -17,7 +17,7 @@ $db = $database->getConnection();
 $evento = new Evento($db);
  
 // read products will be here
-$sql = $evento->availables();
+$sql = $evento->read2();
 $num = $sql->rowCount();
 // check if more than 0 record found
 if($num>0){
@@ -43,9 +43,7 @@ if($num>0){
             "ubicacion" => $ubicacion,
             "costo" => $costo,
             "estado" => $estado,
-            "descripcion" => $descripcion,
-            "cupo" => $cupo,
-            "contador" => $contador
+            "descripcion" => $descripcion
         );
  
         array_push($eventos_arr["records"], $evento_item);
